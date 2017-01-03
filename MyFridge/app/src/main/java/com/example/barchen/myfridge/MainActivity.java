@@ -1,8 +1,8 @@
 package com.example.barchen.myfridge;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +46,22 @@ public class MainActivity extends AppCompatActivity {
                 new RetrieveRecipe().execute();
             }
         });
+
+        DBHandler db = new DBHandler(this);
+
+// Inserting Shop/Rows
+        Log.d("Insert: ", "Inserting ..");
+        db.addMerchandise(new MyFridgeDatabase("Banana" , 1,1));
+
+// Reading all shops
+        Log.d("Reading: ", "Reading all shops..");
+        List<MyFridgeDatabase> merchs = db.getAllMerchandise();
+
+        for (MyFridgeDatabase merch : merchs) {
+            String log = "Id: " + merch.getId() + ", Name: " + merch.getName() + ", Date: " + merch.getDate()+ ", Days: " + merch.getDays();
+// Writing shops to log
+            Log.d("Merchandise:: ", log);
+        }
     }
 
 
